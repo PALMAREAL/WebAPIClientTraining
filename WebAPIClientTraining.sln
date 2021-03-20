@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPIClientDotnetRepo", "WebAPIClientDotnetRepo\WebAPIClientDotnetRepo.csproj", "{7221D59D-E2F7-4A29-A6A1-007FFDD82A18}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPIClientTmdb", "WebAPIClientTmdb\WebAPIClientTmdb.csproj", "{E8ABD787-D18F-411F-9580-A50BB5E00EE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7221D59D-E2F7-4A29-A6A1-007FFDD82A18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7221D59D-E2F7-4A29-A6A1-007FFDD82A18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7221D59D-E2F7-4A29-A6A1-007FFDD82A18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8ABD787-D18F-411F-9580-A50BB5E00EE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8ABD787-D18F-411F-9580-A50BB5E00EE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8ABD787-D18F-411F-9580-A50BB5E00EE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8ABD787-D18F-411F-9580-A50BB5E00EE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
