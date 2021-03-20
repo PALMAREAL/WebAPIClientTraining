@@ -1,12 +1,21 @@
 ﻿using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace WebAPIClientDotnetRepo
 {
     class Program
     {
-        static void Main(string[] args)
+        private static readonly HttpClient client = new HttpClient();
+
+        static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            await ProcessRepositories();
+        }
+
+        private static async Task ProcessRepositories()
+        {
+
         }
     }
 }
