@@ -16,7 +16,17 @@ namespace WebAPIClientDotnetRepo
             var repositories = await ProcessRepositories();
 
             foreach (var repo in repositories)
-                Console.WriteLine(repo.Name);
+            {
+                Console.WriteLine(String.Format("Id: {0}", repo.Id));
+                Console.WriteLine(String.Format("Name: {0}  ", repo.Name));
+                Console.WriteLine(String.Format("Forks: {0}", repo.Forks));
+                Console.WriteLine(String.Format("Description: {0}", repo.Description));
+                Console.WriteLine(String.Format("GitHubHomeUrl: {0}", repo.GitHubHomeUrl));
+                Console.WriteLine(String.Format("Homepage: {0}", repo.Homepage));
+                Console.WriteLine(String.Format("Watchers: {0}", repo.Watchers));
+                Console.WriteLine(String.Format("LastPushUtc: {0}", repo.LastPushUtc));
+                Console.WriteLine();
+            }
         }
 
         private static async Task<List<DotNetRepository>> ProcessRepositories()
