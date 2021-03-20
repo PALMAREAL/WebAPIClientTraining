@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace WebAPIClientDotnetRepo
@@ -23,11 +25,12 @@ namespace WebAPIClientDotnetRepo
 
             client.DefaultRequestHeaders.Add("User-Agent", ".NET Foundation Repository Reporter");
 
-            var stringTask = client.GetStringAsync("https://api.github.com/orgs/dotnet/repos");
+            var streamTask = client.GetStreamAsync("https://api.github.com/orgs/dotnet/repos");
 
-            var msg = await stringTask;
+            var repositories = await JsonSerializer.DeserializeAsync<List<DotNetRepository>>(await streamTask);
 
-            Console.Write(msg);
+            foreach (var repo in repositories)
+                Console.WriteLine(repo.name);
         }
     }
 }
