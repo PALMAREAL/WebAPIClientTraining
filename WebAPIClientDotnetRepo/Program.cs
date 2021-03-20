@@ -13,10 +13,13 @@ namespace WebAPIClientDotnetRepo
 
         static async Task Main(string[] args)
         {
-            await ProcessRepositories();
+            var repositories = await ProcessRepositories();
+
+            foreach (var repo in repositories)
+                Console.WriteLine(repo.Name);
         }
 
-        private static async Task ProcessRepositories()
+        private static async Task<List<DotNetRepository>> ProcessRepositories()
         {
             client.DefaultRequestHeaders.Accept.Clear();
 
@@ -29,8 +32,7 @@ namespace WebAPIClientDotnetRepo
 
             var repositories = await JsonSerializer.DeserializeAsync<List<DotNetRepository>>(await streamTask);
 
-            foreach (var repo in repositories)
-                Console.WriteLine(repo.Name);
+            return repositories;
         }
     }
 }
