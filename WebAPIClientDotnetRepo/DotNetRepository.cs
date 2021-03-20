@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace WebAPIClientDotnetRepo
 {
     public class DotNetRepository
     {
-        public string name { get; set; }
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
     }
 }

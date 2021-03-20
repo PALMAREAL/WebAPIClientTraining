@@ -30,7 +30,7 @@ namespace WebAPIClientDotnetRepo
             var repositories = await JsonSerializer.DeserializeAsync<List<DotNetRepository>>(await streamTask);
 
             foreach (var repo in repositories)
-                Console.WriteLine(repo.name);
+                Console.WriteLine(repo.Name);
         }
     }
 }
