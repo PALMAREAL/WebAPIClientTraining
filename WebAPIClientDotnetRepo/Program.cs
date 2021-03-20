@@ -1,12 +1,48 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace WebAPIClientDotnetRepo
 {
     class Program
     {
-        static void Main(string[] args)
+        private static readonly HttpClient client = new HttpClient();
+
+        static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var repositories = await ProcessRepositories();
+
+            foreach (var repo in repositories)
+            {
+                Console.WriteLine(String.Format("Id: {0}", repo.Id));
+                Console.WriteLine(String.Format("Name: {0}  ", repo.Name));
+                Console.WriteLine(String.Format("Forks: {0}", repo.Forks));
+                Console.WriteLine(String.Format("Description: {0}", repo.Description));
+                Console.WriteLine(String.Format("GitHubHomeUrl: {0}", repo.GitHubHomeUrl));
+                Console.WriteLine(String.Format("Homepage: {0}", repo.Homepage));
+                Console.WriteLine(String.Format("Watchers: {0}", repo.Watchers));
+                Console.WriteLine(String.Format("LastPushUtc: {0}", repo.LastPushUtc));
+                Console.WriteLine();
+            }
+        }
+
+        private static async Task<List<DotNetRepository>> ProcessRepositories()
+        {
+            client.DefaultRequestHeaders.Accept.Clear();
+
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
+
+            client.DefaultRequestHeaders.Add("User-Agent", ".NET Foundation Repository Reporter");
+
+            var streamTask = client.GetStreamAsync("https://api.github.com/orgs/dotnet/repos");
+
+            var repositories = await JsonSerializer.DeserializeAsync<List<DotNetRepository>>(await streamTask);
+
+            return repositories;
         }
     }
 }
