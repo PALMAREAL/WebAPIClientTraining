@@ -1,6 +1,10 @@
-﻿using System;
+﻿using Domain;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace WebAPIClientTmdb
@@ -23,12 +27,11 @@ namespace WebAPIClientTmdb
 
             client.DefaultRequestHeaders.Add("User-Agent", ".TMDB Movie Database");
 
-            var stringTask = client.GetStringAsync("https://api.themoviedb.org/3/movie/top_rated?api_key=b666aeddc5be93fb6241a328e510bf9e&language=en-US&page=1");
-   
-            var response = await stringTask;
+            var response = await client.GetStreamAsync("https://api.themoviedb.org/3/movie/top_rated?api_key=b666aeddc5be93fb6241a328e510bf9e&language=en-US&page=1");
 
-            Console.Write(response);
+            var movies = await JsonSerializer.DeserializeAsync<Movie>(response);
 
+            movies.results.ForEach(m => Console.WriteLine(m.title));
         }
     }
 }
