@@ -1,6 +1,6 @@
 ﻿namespace Domain
 {
-    public class Result
+    public class ResultDto
     {
         public bool adult { get; set; }
 

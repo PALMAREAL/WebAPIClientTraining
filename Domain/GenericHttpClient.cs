@@ -17,21 +17,11 @@ namespace Domain
             HttpClient = new HttpClient();
         }
 
-        public async Task<Movie> SendAsync(string uri)
+        public async Task<T> SendAsync<T>(string uri)
         {
-
-            HttpClient.DefaultRequestHeaders.Accept.Clear();
-
-            HttpClient.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
-
-            HttpClient.DefaultRequestHeaders.Add("User-Agent", ".TMDB Movie Database");
-
             var response = await HttpClient.GetStreamAsync(uri);
 
-            var movies = await JsonSerializer.DeserializeAsync<Movie>(response);
-
-            return movies;  
+            return await JsonSerializer.DeserializeAsync<T>(response);
         }
     }
 }

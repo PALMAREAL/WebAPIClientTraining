@@ -18,9 +18,7 @@ namespace WebAPIClientTmdb
         
         static async Task ProcessTmdb()
         {
-            var client = new GenericHttpClient();
-
-            var movies = await client.SendAsync("https://api.themoviedb.org/3/movie/top_rated?api_key=b666aeddc5be93fb6241a328e510bf9e&language=en-US&page=1");
+           var movies =  await new MovieService().GetMoviesAsync();
 
             movies.results.ForEach(m => Console.WriteLine(m.title));
         }
