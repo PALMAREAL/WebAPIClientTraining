@@ -11,27 +11,15 @@ namespace WebAPIClientTmdb
 {
     class Program
     {
-        private static readonly HttpClient client = new HttpClient();
-
         static async Task Main(string[] args)
         {
-            await ProcessTmdb();
-        }
+            var client = new GenericHttpClient();
 
-        private static async Task ProcessTmdb()
-        {
-            client.DefaultRequestHeaders.Accept.Clear();
-
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
-
-            client.DefaultRequestHeaders.Add("User-Agent", ".TMDB Movie Database");
-
-            var response = await client.GetStreamAsync("https://api.themoviedb.org/3/movie/top_rated?api_key=b666aeddc5be93fb6241a328e510bf9e&language=en-US&page=1");
-
-            var movies = await JsonSerializer.DeserializeAsync<Movie>(response);
+            var movies = await client.SendAsync();
 
             movies.results.ForEach(m => Console.WriteLine(m.title));
         }
     }
 }
+
+
