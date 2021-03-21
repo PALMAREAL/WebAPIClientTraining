@@ -10,18 +10,24 @@ namespace Domain
 {
     public class GenericHttpClient
     {
-        public async Task<Movie> SendAsync()
+        public HttpClient HttpClient { get; set; }
+
+        public GenericHttpClient()
         {
-            var client = new HttpClient();
+            HttpClient = new HttpClient();
+        }
 
-            client.DefaultRequestHeaders.Accept.Clear();
+        public async Task<Movie> SendAsync(string uri)
+        {
 
-            client.DefaultRequestHeaders.Accept.Add(
+            HttpClient.DefaultRequestHeaders.Accept.Clear();
+
+            HttpClient.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
 
-            client.DefaultRequestHeaders.Add("User-Agent", ".TMDB Movie Database");
+            HttpClient.DefaultRequestHeaders.Add("User-Agent", ".TMDB Movie Database");
 
-            var response = await client.GetStreamAsync("https://api.themoviedb.org/3/movie/top_rated?api_key=b666aeddc5be93fb6241a328e510bf9e&language=en-US&page=1");
+            var response = await HttpClient.GetStreamAsync(uri);
 
             var movies = await JsonSerializer.DeserializeAsync<Movie>(response);
 
